@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para Mi Eterno Amor</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: #0a0a0a;
+            font-family: 'Playfair Display', serif;
+            overflow-x: hidden;
+        }
+
+        /* Fondo de rosas negras con zoom suave */
+        .background-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background-image: url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            filter: grayscale(100%) brightness(0.3);
+            animation: subtleZoom 20s infinite alternate ease-in-out;
+        }
+
+        @keyframes subtleZoom {
+            from { transform: scale(1); }
+            to { transform: scale(1.1); }
+        }
+
+        /* Capa de difuminado gris profundo */
+        .vignette {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: radial-gradient(circle, rgba(20,20,20,0.4) 0%, rgba(0,0,0,0.9) 100%);
+            backdrop-filter: blur(4px);
+        }
+
+        .cards-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            padding: 40px 20px;
+            max-width: 1200px;
+        }
+
+        /* Estilo de la carta romántica */
+        .romantic-card {
+            width: 320px;
+            min-height: 450px;
+            background: linear-gradient(135deg, rgba(30,30,30,0.9), rgba(15,15,15,0.95));
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.8);
+            transform: rotateY(0deg);
+            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+            opacity: 0;
+            transform: translateY(30px);
+            animation: slideIn 0.8s forwards;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        @keyframes slideIn {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .romantic-card:hover {
+            border-color: rgba(255, 0, 0, 0.3);
+            box-shadow: 0 0 30px rgba(255, 0, 0, 0.1);
+        }
+
+        .romantic-card::before {
+            content: '❦';
+            font-size: 2rem;
+            color: rgba(255, 255, 255, 0.2);
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .romantic-card::after {
+            content: '❦';
+            font-size: 2rem;
+            color: rgba(255, 255, 255, 0.2);
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .message-title {
+            font-family: 'Great Vibes', cursive;
+            font-size: 2.5rem;
+            color: #d4af37; /* Color oro suave */
+            margin-bottom: 20px;
+        }
+
+        .message-body {
+            font-size: 1.1rem;
+            color: #e0e0e0;
+            line-height: 1.8;
+            font-style: italic;
+        }
+
+        /* Botón elegante */
+        .btn-next {
+            margin: 40px 0;
+            padding: 15px 45px;
+            background: transparent;
+            color: #d4af37;
+            border: 1px solid #d4af37;
+            border-radius: 0;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            font-weight: bold;
+        }
+
+        .btn-next:hover {
+            background: #d4af37;
+            color: black;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+        }
+
+        .floating-heart {
+            position: absolute;
+            color: rgba(255, 0, 0, 0.4);
+            pointer-events: none;
+            z-index: 10;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="background-container"></div>
+    <div class="vignette"></div>
+
+    <header class="text-center mt-12 px-4">
+        <h1 class="text-white text-5xl font-light mb-2 tracking-tighter" style="font-family: 'Great Vibes', cursive;">Para  Mi  Niña </h1>
+        <p class="text-gray-400 italic">No importa lo que hagas yo te seguire amando...</p>
+    </header>
+
+    <div id="cards-container" class="cards-wrapper">
+        <!-- Las cartas románticas aparecerán aquí -->
+    </div>
+
+    <button id="add-card" class="btn-next">Revelar más amor</button>
+
+    <script>
+        const container = document.getElementById('cards-container');
+        const btn = document.getElementById('add-card');
+
+        const frases = [
+            { t: "Nota 1", m: "Si tus ojos fueran mi sol y tu belleza mi corazon con gusto dejaria que tus ojos iluinaran mi corazon." },
+            { t: "Nota 2", m: "Son tantas cosas maravillosas que quiero decirte, muchas palabras que no encuentro como definirtes. Por que las palabras del amor quedan cortas ante mi amor por ti." },
+            { t: "Nota 3", m: "Eres hermosa, incluso mas que una rosa y no es sol lo exterior Si no por lo que llevas dentro del corazon." },
+            { t: "Nota 4", m: "Unos quieren el sol porque iluminan el dia, Otros quieren la luna porque iluminan la noche,  yo te quiero a ti poqeu iluminas mi vida." },
+            { t: "Nota 5", m: "Tal vez no pueda verte todos los dias, abrazarte, mirarte frente a frente, pero sempre te llevo en mis pensamientos y especialmente en el corazon." },
+            { t: "Nota 6", m: "Mi mente es para pensarte mi corazón para amarte, Si yo pudiera, te daria el mundo enter, pero lo unico que te puedo dar es mi amor sincero." },
+            { t: "Nota 7", m: "Te amo con mi alma y no mi corazón, porque algún día mi corazón dejará de latir, pero mi alma permanecerá para siempre." },
+            { t: "Nota 8", m: "No me sirve mirar para arriba y ver el cielo si con tan solo mirar tus ojos puedo ver el universo entero." }
+        ];
+
+        let currentIndex = 0;
+
+        function createRomanticCard(data) {
+            const card = document.createElement('div');
+            card.className = 'romantic-card';
+            
+            card.innerHTML = `
+                <h2 class="message-title">${data.t}</h2>
+                <p class="message-body">"${data.m}"</p>
+            `;
+            
+            return card;
+        }
+
+        function addMore() {
+            if (currentIndex >= frases.length) {
+                btn.innerHTML = "Todo mi amor es tuyo";
+                btn.style.opacity = "0.5";
+                btn.disabled = true;
+                return;
+            }
+
+            // Añadir 2 cartas nuevas por click
+            for (let i = 0; i < 2; i++) {
+                if (currentIndex < frases.length) {
+                    const card = createRomanticCard(frases[currentIndex]);
+                    container.appendChild(card);
+                    currentIndex++;
+                }
+            }
+
+            // Scroll suave
+            window.scrollTo({
+                top: document.body.scrollHeight,
+                behavior: 'smooth'
+            });
+        }
+
+        // Carga inicial
+        addMore();
+
+        btn.addEventListener('click', addMore);
+
+        // Efecto visual de corazones al hacer click en el fondo
+        document.addEventListener('click', (e) => {
+            const heart = document.createElement('span');
+            heart.innerHTML = '❤';
+            heart.className = 'floating-heart';
+            heart.style.left = e.pageX + 'px';
+            heart.style.top = e.pageY + 'px';
+            document.body.appendChild(heart);
+            
+            let pos = 0;
+            const interval = setInterval(() => {
+                pos++;
+                heart.style.transform = `translateY(-${pos}px)`;
+                heart.style.opacity = 1 - (pos/100);
+                if(pos > 100) {
+                    clearInterval(interval);
+                    heart.remove();
+                }
+            }, 10);
+        });
+    </script>
+</body>
+</html>
